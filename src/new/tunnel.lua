@@ -15,8 +15,49 @@ _digBlacklist = {
     'quartz_ore'
 }
 
+local function fillShulkerBox()
+    if select('shulker_box') then
+        local placeAttempts = {
+            {
+                function () return place('u'), 'u' end,
+                function () end
+            }, {
+                function () return place('f'), 'f' end,
+                function () end
+            }, {
+                function () return place('d'), 'd' end,
+                function () end
+            }, {
+                function () turn('l') return place('f'), 'f' end,
+                function () turn('r') end
+            }, {
+                function () turn('l') return place('f'), 'f' end,
+                function () turn('r', 2) end
+            }, {
+                function () turn('l') return place('f'), 'f' end,
+                function () turn('l') end
+            }
+        }
+        for _,v in ipairs(placeAttempts) do
+            local pass, direction = v[1]()
+            if pass then
+                for slot=1,16 do
+                    turtle.select(slot)
+                    drop(direction)
+                end
+                dig(direction)
+                v[2]()
+                return
+            end
+        end
+    end
+end
+
 local function digThree()
-    ensureInventoryNotFull()
+    if isInventoryFull() then
+        fillShulkerBox()
+        ensureInventoryNotFull()
+    end
     --dealing with gravel
     while turtle.detect() do
         --can't use dig move, turtle will break the first gravel then get stuck

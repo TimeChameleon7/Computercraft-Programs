@@ -6,8 +6,8 @@
     intended to be used for code error checking
 ]]
 function getIndexOrError(valueTable, index, typeOfIndex)
+    typeOfIndex = typeOfIndex or 'index'
     local value = valueTable[index]
-    if typeOfIndex == nil then typeOfIndex = 'index' end
     if not value then error(typeOfIndex .. ' was not one of the options: ' .. index) end
     return value
 end
@@ -40,8 +40,7 @@ end
             convert = tonumber,
             check = function(value) return type(value) == 'number' and value > 0 end,
             fail = 'distance must be a number greater than 0'
-        },
-        {
+        }, {
             name = 'width',
             convert = tonumber,
             check = function(value) return type(value) == 'number' and value > 0 end,

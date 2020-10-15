@@ -15,7 +15,7 @@ function getFuelLevel() return 1 end
 function getFuelLimit() return 1 end
 
 --inventory
-function select() return true end
+function select(slotNum --[[number]]) return true end
 function getSelectedSlot() return 1 end
 function getItemCount(--[[slotNum: number]]) return 1 end
 function getItemSpace(--[[slotNum: number]]) return 1 end --returns number of items remaining to fill the stack

@@ -17,16 +17,19 @@ function move(direction)
     until success
 end
 
-function turn(direction)
+function turn(direction, amount)
+    amount = amount or 1
     local turnTable = {
         r = turtle.turnRight,
         l = turtle.turnLeft
     }
     local turnCall = getIndexOrError(turnTable, direction, 'direction')
     --I'm pretty sure turn can't fail, but better safe than sorry
-    repeat
-        local success = turnCall()
-    until success
+    for i=1,amount do
+        repeat
+            local success = turnCall()
+        until success
+    end
 end
 
 --[[
@@ -55,13 +58,9 @@ end
 
 -- if inventory has no empty slots, will print informing the user that, and wait until it is fixed
 function ensureInventoryNotFull()
-    while true do
-        if isInventoryFull() then
-            write('inventory full, enter after remedy to continue...')
-            read()
-        else
-            return
-        end
+    while isInventoryFull() do
+        write('inventory full, enter after remedy to continue...')
+        read()
     end
 end
 
