@@ -1,7 +1,7 @@
 require('turtlelib')
 
 --will never mine, possibly causing the turtle to stop
-_digBlacklist = {
+_digMoveBlacklist = {
     'diamond_ore',
     'emerald_ore',
     'quartz_ore',
@@ -11,7 +11,7 @@ _digBlacklist = {
 }
 
 --will only mine if it is in the way of movement
-_digMoveBlacklist = {
+_digBlacklist = {
     'quartz_ore'
 }
 
