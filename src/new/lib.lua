@@ -58,7 +58,9 @@ end
         specified as it's argument (in the first case, tonumber(distance) )
     check must be a function, and will be run on the result from convert,
         in these cases, check is ensuring that distance is a number, and that it
-        is greater than 0
+        is greater than 0,
+        note: convert could instead be set up to throw an error if more specific
+            error checking is desired
     fail is the message displayed if check returns false
         if required is true, then the function will error with that message
         if required is false, then the function will just print to inform the user
@@ -70,7 +72,7 @@ end
         as well as informing the user of the defaulting
 ]]
 function progArgHandler(progArg, handler)
-    if #progArg % 2 == 1 then error('progArguments length must be a multiple of 2') end
+    if #progArg % 2 == 1 then error('arguments must be in pairs', 0) end
     handler = handler or {}
     local progArgTable = {}
     for i=1, #progArg, 2 do
@@ -82,7 +84,7 @@ function progArgHandler(progArg, handler)
             if v.check then
                 if not v.check(progArgTable[v.name]) then
                     if v.required then
-                        error(v.fail or 'check failed for ' .. v.name)
+                        error(v.fail or 'check failed for ' .. v.name, 0)
                     else
                         print(v.fail or 'check failed for ' .. v.name)
                         print(' defaulting to ' .. tostring(v.default))
@@ -91,7 +93,7 @@ function progArgHandler(progArg, handler)
             end
         else
             if v.required then
-                error('argument \'' .. v.name .. '\' is required but is not present')
+                error('argument \'' .. v.name .. '\' is required but is not present', 0)
             else
                 progArgTable[v.name] = v.default
             end

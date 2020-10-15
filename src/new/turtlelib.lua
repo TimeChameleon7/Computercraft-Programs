@@ -233,7 +233,7 @@ _digBlacklist = {}
     hits a blacklisted item otherwise, returns the result of the turtle.dig call
 ]]
 function dig(direction, blacklist)
-    if blacklist == nil then blacklist = _digBlacklist end
+    blacklist = blacklist or _digBlacklist
     local digTable = {
         ['u'] = turtle.digUp,
         ['f'] = turtle.dig,
