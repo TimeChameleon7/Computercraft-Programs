@@ -228,9 +228,9 @@ end
 
 _digBlacklist = {}
 --[[
-    allows digging with a specified blacklist, if the thing attempting to be dug is blacklisted,
-    returns blacklisted value if the dig attept hits a blacklisted item
-    otherwise, returns the result of the turtle.dig call
+    allows digging with a specified blacklist, if the thing attempting
+    to be dug is blacklisted, returns blacklisted value if the dig attept
+    hits a blacklisted item otherwise, returns the result of the turtle.dig call
 ]]
 function dig(direction, blacklist)
     if blacklist == nil then blacklist = _digBlacklist end

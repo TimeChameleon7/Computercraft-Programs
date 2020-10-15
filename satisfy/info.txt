@@ -1,0 +1,3 @@
+The purpose of the 'satisfy' module is just to satisfy the LuaJ Intellij
+plugin, to prevent it from informing me of missing calls that won't be missing
+within computercraft
