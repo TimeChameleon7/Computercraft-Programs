@@ -76,23 +76,34 @@ local handler = {
         convert = tonumber,
         check = function(value) return type(value) == 'number' and value > 0 end,
         fail = 'distance must be a number greater than 0'
-    },
-    {
+    }, {
         name = 'width',
         default = 3,
         convert = tonumber,
         check = function(value) return type(value) == 'number' and value > 0 end,
         fail = 'width must be a number greater than 0'
-    },
-    {
+    }, {
         name = 'direction',
         default = 'right',
         check = function (value) return value == 'right' or value == 'left' end,
         fail = 'direction must be either \'right\' or \'left\''
+    }, {
+        name = 'attended',
+        default = true,
+        convert = function (value)
+            if value == 'true' then return true end
+            if value == 'false' then return false end
+        end,
+        check = function (value) return type(value) == 'boolean' end,
+        fail = 'attended must either be \'true\' or \'false\''
     }
 }
 local arg = progArgHandler(arg, handler)
 
+if not arg.attended then
+    _digBlacklist = _digMoveBlacklist
+    _digMoveBlacklist = nil
+end
 local boolDirectedTurn
 if arg.width == 1 then boolDirectedTurn = function () end
 else
