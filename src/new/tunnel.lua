@@ -85,14 +85,10 @@ local handler = {
         fail = 'width must be a number greater than 0'
     },
     {
-        name = 'turnstartleft',
-        default = false,
-        convert = function(value)
-            if value == 'true' then return true
-            elseif value == 'false' then return false
-            else error('turnstartleft must be \'true\' or \'false\'')
-            end
-        end
+        name = 'direction',
+        default = 'right',
+        check = function (value) return value == 'right' or value == 'left' end,
+        fail = 'direction must be either \'right\' or \'left\''
     }
 }
 local arg = progArgHandler(arg, handler)
@@ -106,7 +102,7 @@ else
     end
 end
 
-local turnLeft = arg.turnstartleft
+local turnLeft = arg.direction == 'left'
 for currentDistance=1, arg.distance do
     digThree()
     turnLeft = boolDirectedTurn(turnLeft)
